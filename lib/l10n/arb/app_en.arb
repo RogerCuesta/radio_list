@@ -1,0 +1,19 @@
+{
+    "@@locale": "en",
+    "cryptoListAppBarTitle": "Crypto List Test",
+    "@cryptoListAppBarTitle": {
+        "description": "Text shown in the AppBar of the Home Page"
+    },
+    "retryButton": "Try again",
+    "@retryButton": {
+        "description": "Button text of the Error View for Home Page"
+    },
+    "homeTitle": "CoinGecko",
+    "@homeTitle": {
+        "description": "Title text for Home Page"
+    },
+    "notFoundText": "No result found",
+    "@notFoundText": {
+        "description": "Text when no result found"
+    }
+}

@@ -29,7 +29,7 @@ class CoinsState {
     required List<Coin> savedCoinList,
   }) =>
       CoinsState(
-        coinsList: coinsList,
+        coinsList: coinsList,  
         coinsLoadStatus: coinsLoadStatus,
         savedCoinList: savedCoinList,
       );

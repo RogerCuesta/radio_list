@@ -1,14 +1,19 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_cripto_list/blocs/coins_event.dart';
-import 'package:flutter_cripto_list/blocs/coins_state.dart';
+import 'package:flutter_cripto_list/home/bloc/coins_event.dart';
+import 'package:flutter_cripto_list/home/bloc/coins_state.dart';
 import 'package:flutter_cripto_list/models/coin.dart';
+import 'package:flutter_cripto_list/repositories/coingecko_repository.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class CoinsBloc extends Bloc<CoinsEvent, CoinsState> {
-  CoinsBloc() : super(CoinsState.initial()) {
+  final CoingeckoRepository _coingeckoRepository;
+  CoinsBloc({
+    required CoingeckoRepository coingeckoRepository,
+  })  : _coingeckoRepository = coingeckoRepository,
+        super(CoinsState.initial()) {
     on<CoinsEvent>(
       _onCoinsEvent,
     );
@@ -65,14 +70,7 @@ class CoinsBloc extends Bloc<CoinsEvent, CoinsState> {
       ),
     );
     try {
-      List<Coin> coins = [];
-      var response = await http.get(Uri.parse(
-          'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false'));
-      if (response.statusCode == 200) {
-        coins = (json.decode(response.body) as List)
-            .map((data) => Coin.fromJson(data))
-            .toList();
-      }
+      var coins = await _coingeckoRepository.loadFavoriteCoffees();
       emit(
         state.copyWith(
           coinsLoadStatus: CoinsLoadStatus.succeeded,

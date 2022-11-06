@@ -1,0 +1,19 @@
+{
+    "@@locale": "es",
+    "cryptoListAppBarTitle": "Lista de criptomonedas",
+    "@cryptoListAppBarTitle": {
+        "description": "Texto mostrado en la AppBar de la Home Page"
+    },
+    "retryButton": "Prueba de nuevo",
+    "@retryButton": {
+        "description": "Texto del boton de la Home Page"
+    },
+    "homeTitle": "CoinGecko",
+    "@homeTitle": {
+        "description": "Titulo para la Home Page"
+    },
+    "notFoundText": "No se han encontrado resultados",
+    "@notFoundText": {
+        "description": "Texto cuando no se encuentra ningún resultado"
+    }
+}

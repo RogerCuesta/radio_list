@@ -2,8 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_radio/theme/theme.dart';
 import 'package:flutter_radio_player/flutter_radio_player.dart';
 import 'package:flutter_radio_player/models/frp_player_event.dart';
+import 'package:provider/provider.dart';
 import 'package:text_scroll/text_scroll.dart';
 
 class FRPPlayerControls extends StatefulWidget {
@@ -34,6 +36,7 @@ class _FRPPlayerControlsState extends State<FRPPlayerControls> {
 
   @override
   Widget build(BuildContext context) {
+    final themeData = Provider.of<RadioAppThemeData>(context);
     return StreamBuilder(
       stream: widget.flutterRadioPlayer.frpEventStream,
       builder: (context, snapshot) {
@@ -83,11 +86,8 @@ class _FRPPlayerControlsState extends State<FRPPlayerControls> {
                         TextScroll(
                           currentPlaying,
                           textAlign: TextAlign.start,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style:
+                              themeData.radioAppTextTheme.titleCurrentplaying,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,

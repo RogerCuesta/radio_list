@@ -2,8 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_radio/l10n/l10n.dart';
 import 'package:flutter_radio/models/radio.dart' as radiomodel;
+import 'package:flutter_radio/theme/theme.dart';
 import 'package:flutter_radio_player/flutter_radio_player.dart';
 import 'package:flutter_radio_player/models/frp_source_modal.dart';
+import 'package:provider/provider.dart';
 
 import 'widgets/radio_player_widget.dart';
 
@@ -46,6 +48,7 @@ class _RadioPageState extends State<RadioPage> {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+    final themeData = Provider.of<RadioAppThemeData>(context);
 
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -113,17 +116,14 @@ class _RadioPageState extends State<RadioPage> {
                                 children: [
                                   Text(
                                     l10n.stateText,
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                    style: themeData
+                                        .radioAppTextTheme.radioInfoText,
                                   ),
                                   Text(
                                     widget.radioSelected.state!,
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20,
+                                    style: themeData
+                                        .radioAppTextTheme.radioInfoText
+                                        .copyWith(
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
@@ -142,17 +142,14 @@ class _RadioPageState extends State<RadioPage> {
                                 children: [
                                   Text(
                                     l10n.votesText,
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                    style: themeData
+                                        .radioAppTextTheme.radioInfoText,
                                   ),
                                   Text(
                                     widget.radioSelected.votes!.toString(),
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20,
+                                    style: themeData
+                                        .radioAppTextTheme.radioInfoText
+                                        .copyWith(
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),

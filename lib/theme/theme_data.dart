@@ -66,6 +66,6 @@ extension MaterialThemeData on RadioAppThemeData {
             systemOverlayStyle: SystemUiOverlayStyle.dark,
             color: colorPalette.black,
             titleTextStyle: radioAppTextTheme.titleLarge),
-        fontFamily: 'Axiforma Book',
+        fontFamily: 'Raleway',
       );
 }

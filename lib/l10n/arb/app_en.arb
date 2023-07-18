@@ -1,19 +1,27 @@
 {
     "@@locale": "en",
-    "cryptoListAppBarTitle": "Crypto List Test",
-    "@cryptoListAppBarTitle": {
-        "description": "Text shown in the AppBar of the Home Page"
+    "radioAppBarTitle": "Radio App",
+    "@radioAppBarTitle": {
+        "description": "Text shown in the AppBar of the Radio List Page"
     },
     "retryButton": "Try again",
     "@retryButton": {
-        "description": "Button text of the Error View for Home Page"
-    },
-    "homeTitle": "CoinGecko",
-    "@homeTitle": {
-        "description": "Title text for Home Page"
+        "description": "Button text of the Error View for Radio List Page"
     },
     "notFoundText": "No result found",
     "@notFoundText": {
         "description": "Text when no result found"
+    },
+    "stateText": "State",
+    "@stateText": {
+        "description": "State text Radio player"
+    },
+    "votesText": "Votes",
+    "@votesText": {
+        "description": "Votes text Radio player"
+    },
+    "languageText": "Languages",
+    "@languageText": {
+        "description": "Language Text radio player"
     }
 }

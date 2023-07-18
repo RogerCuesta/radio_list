@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_cripto_list/api/coingecko/coingecko_api.dart';
-import 'package:flutter_cripto_list/home/view/home_list.dart';
-import 'package:flutter_cripto_list/l10n/l10n.dart';
-import 'package:flutter_cripto_list/repositories/coingecko_repository.dart';
+import 'package:flutter_radio/api/radiofm/radiofm_api.dart';
+import 'package:flutter_radio/home/view/radiofm_home.dart';
+import 'package:flutter_radio/l10n/l10n.dart';
+import 'package:flutter_radio/repositories/radio_repository.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_radio/theme/theme.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -14,33 +15,35 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider<CoingeckoService>(
-          create: (_) => CoingeckoService(),
+        Provider<RadioService>(
+          create: (_) => RadioService(),
         ),
       ],
       child: _RepositoryInitializer(
-        child: MaterialApp(
-          title: 'Flutter Demo',
-          localizationsDelegates: const [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: const [
-            Locale('en', ''),
-            Locale('es', ''),
-          ],
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-          ),
-          home: const MyHomePage(),
-        ),
+        child: Provider(
+            create: (_) => RadioAppThemeData.light(),
+            child: Builder(builder: (context) {
+              return MaterialApp(
+                localizationsDelegates: const [
+                  AppLocalizations.delegate,
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                ],
+                supportedLocales: const [
+                  Locale('en', ''),
+                  Locale('es', ''),
+                ],
+                locale: const Locale('es'),
+                theme:
+                    Provider.of<RadioAppThemeData>(context).materialThemeData,
+                home: const MyHomePage(),
+              );
+            })),
       ),
     );
   }
@@ -54,14 +57,13 @@ class _RepositoryInitializer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final coingeckoService =
-        Provider.of<CoingeckoService>(context, listen: false);
+    final radioService = Provider.of<RadioService>(context, listen: false);
 
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider(
-          create: (_) => CoingeckoRepository(
-            coingeckoService: coingeckoService,
+          create: (_) => RadioRepository(
+            radioService: radioService,
           ),
         ),
       ],

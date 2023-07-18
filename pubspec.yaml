@@ -1,4 +1,4 @@
-name: flutter_cripto_list
+name: flutter_radio
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -20,6 +20,10 @@ dependencies:
   flutter_bloc: ^8.1.1
   intl: ^0.17.0
   provider: ^6.0.4
+  flutter_radio_player: ^2.0.2
+  diacritic: ^0.1.4
+  cached_network_image: ^3.2.3
+  text_scroll: ^0.2.0
 
   flutter_localizations:
     sdk: flutter 

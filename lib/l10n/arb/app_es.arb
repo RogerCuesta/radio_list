@@ -1,19 +1,27 @@
 {
     "@@locale": "es",
-    "cryptoListAppBarTitle": "Lista de criptomonedas",
-    "@cryptoListAppBarTitle": {
-        "description": "Texto mostrado en la AppBar de la Home Page"
+    "radioAppBarTitle": "Radio App",
+    "@radioAppBarTitle": {
+        "description": "Texto mostrado en la AppBar de la Radio List Page"
     },
     "retryButton": "Prueba de nuevo",
     "@retryButton": {
-        "description": "Texto del boton de la Home Page"
-    },
-    "homeTitle": "CoinGecko",
-    "@homeTitle": {
-        "description": "Titulo para la Home Page"
+        "description": "Texto del boton de la Radio List Page"
     },
     "notFoundText": "No se han encontrado resultados",
     "@notFoundText": {
         "description": "Texto cuando no se encuentra ningún resultado"
+    },
+    "stateText": "Provincia",
+    "@stateText": {
+        "description": "Texto de la provincia de la Radio"
+    },
+    "votesText": "Votos",
+    "@votesText": {
+        "description": "Texto de los votos de una radio"
+    },
+    "languageText": "Idiomas",
+    "@languageText": {
+        "description": "Texto idiomas de una radio"
     }
 }

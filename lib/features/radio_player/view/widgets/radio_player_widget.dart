@@ -10,11 +10,11 @@ class FRPlayer extends StatefulWidget {
   final bool useIcyData;
 
   const FRPlayer({
-    Key? key,
+    super.key,
     required this.flutterRadioPlayer,
     required this.frpSource,
     required this.useIcyData,
-  }) : super(key: key);
+  });
 
   @override
   State<FRPlayer> createState() => _FRPlayerState();

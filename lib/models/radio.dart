@@ -27,7 +27,7 @@ class Radio extends Equatable {
       state: json['state'],
       language: json['language'],
       votes: json['votes'],
-      favicon: json['favicon'],
+      favicon: json['favicon'] == "" ? null : json['favicon'],
     );
   }
 

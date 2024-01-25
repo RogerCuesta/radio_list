@@ -16,10 +16,11 @@ class RadioAppThemeData {
   static RadioAppThemeData light() => RadioAppThemeData(
         colorPalette: RadioAppColorPalette(),
         radioAppTextThemeBuilder: (colors) => RadioAppTextTheme(
-          titleLarge: const TextStyle(
+          titleLarge: TextStyle(
             fontWeight: FontWeight.w700,
             letterSpacing: 1.2,
             fontSize: 20,
+            color: colors.appTitle,
           ),
           bodyText: const TextStyle(
             fontSize: 14.0,
@@ -33,25 +34,25 @@ class RadioAppThemeData {
             letterSpacing: 1.2,
           ),
           titleCurrentplaying: TextStyle(
-              color: colors.white,
+              color: colors.button,
               fontWeight: FontWeight.w700,
               fontFamily: "Raleway",
               fontStyle: FontStyle.normal,
               fontSize: 24.0),
           titleCardRadios: TextStyle(
-              color: colors.white,
+              color: colors.text,
               fontWeight: FontWeight.w700,
               fontFamily: "Raleway",
               fontStyle: FontStyle.normal,
               fontSize: 13.0),
           subTitleCardRaios: TextStyle(
-              color: colors.grey,
+              color: colors.text,
               fontWeight: FontWeight.w600,
               fontFamily: "Raleway",
               fontStyle: FontStyle.normal,
               fontSize: 10.0),
           radioInfoText: TextStyle(
-            color: colors.white,
+            color: colors.text,
             fontSize: 20,
             fontWeight: FontWeight.bold,
           ),
@@ -63,9 +64,11 @@ extension MaterialThemeData on RadioAppThemeData {
   ThemeData get materialThemeData => ThemeData(
         primaryTextTheme: ThemeData.light().textTheme,
         appBarTheme: AppBarTheme(
-            systemOverlayStyle: SystemUiOverlayStyle.dark,
-            color: colorPalette.black,
-            titleTextStyle: radioAppTextTheme.titleLarge),
+          systemOverlayStyle: SystemUiOverlayStyle.dark,
+          color: colorPalette.backgroundColor,
+          titleTextStyle: radioAppTextTheme.titleLarge,
+          centerTitle: false
+        ),
         fontFamily: 'Raleway',
       );
 }

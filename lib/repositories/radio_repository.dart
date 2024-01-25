@@ -9,7 +9,26 @@ class RadioRepository {
   });
 
   /// Get list of radios FM
-  Future<List<radiomodel.Radio>> loadRadioFMList() async {
-    return await radioService.getListOfRadiosFromSpain();
+  Future<List<radiomodel.Radio>> getRadios({
+    required int limit,
+    required int offset,
+  }) async {
+    return await radioService.getListOfRadiosFromSpain(
+      limit: limit,
+      offset: offset,
+    );
+  }
+
+  /// Search radios
+  Future<List<radiomodel.Radio>> searchRadios({
+    required int limit,
+    required int offset,
+    String searchText = '',
+  }) async {
+    return await radioService.searchRadios(
+      limit: limit,
+      offset: offset,
+      searchText: searchText,
+    );
   }
 }

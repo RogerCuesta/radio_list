@@ -16,13 +16,13 @@ class FRPPlayerControls extends StatefulWidget {
   final Function(String status) updateCurrentStatus;
 
   const FRPPlayerControls({
-    Key? key,
+    super.key,
     required this.flutterRadioPlayer,
     required this.addSourceFunction,
     required this.nextSource,
     required this.prevSource,
     required this.updateCurrentStatus,
-  }) : super(key: key);
+  });
 
   @override
   State<FRPPlayerControls> createState() => _FRPPlayerControlsState();
@@ -74,42 +74,48 @@ class _FRPPlayerControlsState extends State<FRPPlayerControls> {
               break;
           }
           return latestPlaybackStatus == "flutter_radio_stopped"
-              ? const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: CircularProgressIndicator(),
-                )
-              : Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
+              ?  Center(
+                child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: CircularProgressIndicator(
+                      color: themeData.colorPalette.button,
+                    ),
+                  ),
+              )
+              : Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextScroll(
+                      currentPlaying,
+                      textAlign: TextAlign.start,
+                      style:
+                          themeData.radioAppTextTheme.titleCurrentplaying,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        TextScroll(
-                          currentPlaying,
-                          textAlign: TextAlign.start,
-                          style:
-                              themeData.radioAppTextTheme.titleCurrentplaying,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            IconButtonWidget(
-                              onTap: () async {
-                                widget.flutterRadioPlayer.playOrPause();
-                                resetNowPlayingInfo();
-                              },
-                              icon: statusIcon,
-                            ),
-                          ],
+                        IconButtonWidget(
+                          onTap: () async {
+                            widget.flutterRadioPlayer.playOrPause();
+                            resetNowPlayingInfo();
+                          },
+                          icon: statusIcon,
                         ),
                       ],
                     ),
-                  ),
-                );
+                  ],
+                ),
+              );
         } else if (latestPlaybackStatus == "flutter_radio_stopped") {
-          return const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: CircularProgressIndicator(),
+          return const Center(
+            child: Padding(
+              padding: EdgeInsets.all(10.0),
+              child: CircularProgressIndicator(),
+            ),
           );
         }
         return const Text("Determining state ...");
@@ -124,28 +130,27 @@ class _FRPPlayerControlsState extends State<FRPPlayerControls> {
 
 class IconButtonWidget extends StatelessWidget {
   const IconButtonWidget({
-    Key? key,
+    super.key,
     required this.icon,
     this.onTap,
-  }) : super(key: key);
+  });
 
   final IconData icon;
   final Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
+    final themeData = Provider.of<RadioAppThemeData>(context);
+
     return InkWell(
       enableFeedback: false,
-      highlightColor: Colors.transparent,
-      focusColor: Colors.transparent,
-      splashColor: Colors.transparent,
       onTap: (onTap),
       child: Padding(
-        padding: const EdgeInsets.all(30),
+        padding: const EdgeInsets.all(10),
         child: Icon(
           icon,
-          size: 60,
-          color: Colors.white,
+          size: 50,
+          color: themeData.colorPalette.button,
         ),
       ),
     );

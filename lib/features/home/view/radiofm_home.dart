@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_radio/home/bloc/radios_bloc.dart';
-import 'package:flutter_radio/home/bloc/radios_event.dart';
-import 'package:flutter_radio/home/bloc/radios_state.dart';
-import 'package:flutter_radio/home/view/widgets/radiofm_list.dart';
+import 'package:flutter_radio/features/home/bloc/home_cubit.dart';
+import 'package:flutter_radio/features/home/bloc/home_state.dart';
+import 'package:flutter_radio/features/home/view/widgets/radiofm_list.dart';
 import 'package:flutter_radio/l10n/l10n.dart';
 import 'package:flutter_radio/repositories/radio_repository.dart';
+import 'package:flutter_radio/theme/theme_data.dart';
+import 'package:provider/provider.dart';
+
+import 'widgets/radiofm_searchbar.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -18,33 +21,29 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+    final themeData = Provider.of<RadioAppThemeData>(context);
 
     return BlocProvider(
-      create: (_) => RadiosBloc(
+      create: (_) => HomeCubit(
         radioRepository: RepositoryProvider.of<RadioRepository>(context),
-      )..add(RadiosGetData()),
+      )..loadRadioChannels(),
       child: Scaffold(
         appBar: AppBar(
           title: Text(
             l10n.radioAppBarTitle,
           ),
+          bottomOpacity: 0.0,
         ),
         body: SafeArea(
           bottom: false,
           child: Container(
+            color: themeData.colorPalette.backgroundColor,
             padding: const EdgeInsets.symmetric(horizontal: 14),
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [Color(0xff3f51b5), Color(0xff000000)],
-              ),
-            ),
             child: Column(
               children: [
-                BlocBuilder<RadiosBloc, RadiosState>(
+                BlocBuilder<HomeCubit, HomeState>(
                   builder: (context, state) {
-                    switch (state.radiosLoadStatus) {
+                    switch (state.status) {
                       case RadiosLoadStatus.failed:
                         return const ErrorView();
                       case RadiosLoadStatus.succeeded:
@@ -52,10 +51,12 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: Column(
                             children: [
                               const SizedBox(height: 10),
-                              state.radioList.isNotEmpty
+                              const RadioSearchBar(),
+                              const SizedBox(height: 10),
+                              state.radioChannels.isNotEmpty
                                   ? Flexible(
-                                      child:
-                                          RadioList(radioList: state.radioList),
+                                      child: RadioList(
+                                          radioList: state.radioChannels),
                                     )
                                   : const Center(
                                       child: Text('No radios found'),
@@ -92,7 +93,7 @@ class ErrorView extends StatelessWidget {
               Icons.replay_circle_filled_rounded,
             ),
             onPressed: () {
-              context.read<RadiosBloc>().add(RadiosGetData());
+              context.read<HomeCubit>().loadRadioChannels();
             }),
       ],
     );

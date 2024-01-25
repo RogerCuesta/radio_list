@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_radio/api/radiofm/radiofm_api.dart';
-import 'package:flutter_radio/home/view/radiofm_home.dart';
+import 'package:flutter_radio/features/home/view/radiofm_home.dart';
 import 'package:flutter_radio/l10n/l10n.dart';
 import 'package:flutter_radio/repositories/radio_repository.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';

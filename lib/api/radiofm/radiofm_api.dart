@@ -17,6 +17,7 @@ class RadioService {
       'limit': limit.toString(),
       'offset': offset.toString(),
       'order': 'name',
+      'hidebroken': true.toString(),
     };
 
     final uri =
@@ -32,7 +33,8 @@ class RadioService {
       );
     }
 
-    final radios = (json.decode(response.body) as List)
+    final radios = (json.decode(utf8.decode(response.bodyBytes))
+            as List) //Decode bodyBytes because prevent errors with specials characters and accents
         .map((data) => Radio.fromJson(data))
         .toList();
 
@@ -50,6 +52,7 @@ class RadioService {
       'offset': offset.toString(),
       'order': 'name',
       'name': searchText,
+      'hidebroken': true.toString(),
     };
     final uri =
         Uri.parse("$baseUrl/search").replace(queryParameters: queryParams);
@@ -63,7 +66,7 @@ class RadioService {
       );
     }
 
-    final radios = (json.decode(response.body) as List)
+    final radios = (json.decode(utf8.decode(response.bodyBytes)) as List)
         .map((data) => Radio.fromJson(data))
         .toList();
     return radios;

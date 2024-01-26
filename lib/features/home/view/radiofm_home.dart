@@ -17,7 +17,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  //TextEditingController _textEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
@@ -37,9 +36,10 @@ class _MyHomePageState extends State<MyHomePage> {
         body: SafeArea(
           bottom: false,
           child: Container(
-            color: themeData.colorPalette.backgroundColor,
+            color: themeData.colorPalette.seashell,
             padding: const EdgeInsets.symmetric(horizontal: 14),
-            child: Column(
+            child: Stack(
+              alignment: Alignment.topCenter,
               children: [
                 BlocBuilder<HomeCubit, HomeState>(
                   builder: (context, state) {
@@ -50,25 +50,35 @@ class _MyHomePageState extends State<MyHomePage> {
                         return Expanded(
                           child: Column(
                             children: [
-                              const SizedBox(height: 10),
-                              const RadioSearchBar(),
-                              const SizedBox(height: 10),
+                              const SizedBox(height: 60),
                               state.radioChannels.isNotEmpty
                                   ? Flexible(
                                       child: RadioList(
-                                          radioList: state.radioChannels),
+                                        radioList: state.radioChannels,
+                                      ),
                                     )
-                                  : const Center(
-                                      child: Text('No radios found'),
+                                  : Flexible(
+                                      child: Center(
+                                        child: Text(
+                                          l10n.notFoundText,
+                                          style: themeData
+                                              .radioAppTextTheme.bodyText,
+                                        ),
+                                      ),
                                     ),
                             ],
                           ),
                         );
                       case RadiosLoadStatus.loading:
-                        return const Center(child: CircularProgressIndicator());
+                        return const Flexible(
+                          child: Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        );
                     }
                   },
                 ),
+                const RadioSearchBar(),
               ],
             ),
           ),
@@ -83,19 +93,29 @@ class ErrorView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const Center(
-          child: Text('failed to fetch radios'),
-        ),
-        MaterialButton(
-            child: const Icon(
-              Icons.replay_circle_filled_rounded,
+    final themeData = Provider.of<RadioAppThemeData>(context);
+    return Flexible(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(
+            child: Text(
+              'Failed to fetch radios',
+              style: themeData.radioAppTextTheme.titleLarge,
             ),
-            onPressed: () {
-              context.read<HomeCubit>().loadRadioChannels();
-            }),
-      ],
+          ),
+          MaterialButton(
+              child: Icon(
+                Icons.replay_circle_filled_rounded,
+                color: themeData.colorPalette.fuchsiarose,
+                size: 40,
+              ),
+              onPressed: () {
+                context.read<HomeCubit>().loadRadioChannels();
+              }),
+        ],
+      ),
     );
   }
 }

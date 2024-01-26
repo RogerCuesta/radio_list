@@ -78,7 +78,7 @@ class _FRPPlayerControlsState extends State<FRPPlayerControls> {
                 child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: CircularProgressIndicator(
-                      color: themeData.colorPalette.button,
+                      color: themeData.colorPalette.coralpink,
                     ),
                   ),
               )
@@ -150,7 +150,7 @@ class IconButtonWidget extends StatelessWidget {
         child: Icon(
           icon,
           size: 50,
-          color: themeData.colorPalette.button,
+          color: themeData.colorPalette.coralpink,
         ),
       ),
     );

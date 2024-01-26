@@ -1,11 +1,9 @@
-import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_radio/theme/theme.dart';
 import 'package:provider/provider.dart';
 
-class ChannelImageCard extends StatelessWidget {
+class RadioImage extends StatelessWidget {
   final String? imageUrl;
   final String imageId;
   final bool localImage;
@@ -16,7 +14,7 @@ class ChannelImageCard extends StatelessWidget {
   final bool selected;
   final Function(Object, StackTrace?)? localErrorFunction;
 
-  const ChannelImageCard({
+  const RadioImage({
     super.key,
     required this.imageUrl,
     required this.imageId,
@@ -35,7 +33,7 @@ class ChannelImageCard extends StatelessWidget {
 
     return CircleAvatar(
       radius: 35,
-      backgroundColor: themeData.colorPalette.backgroundColor,
+      backgroundColor: themeData.colorPalette.fuchsiarose,
       child: ClipOval(
         child: SizedBox.square(
           dimension: boxDimension!,
@@ -52,41 +50,25 @@ class ChannelImageCard extends StatelessWidget {
   }
 
   Widget _buildImage(BuildContext context) {
-    final themeData = Provider.of<RadioAppThemeData>(context);
     if (imageUrl == null ||
         imageUrl!.contains(
             RegExp(r'(\b(?:https?|ftp):\/\/[^\s/$.?#].[^\s]*\.svg\b)'))) {
-      return Icon(
-        Icons.radio,
-        color: themeData.colorPalette.button,
-        size: 30,
-      );
+      return _erroWidget(context);
     } else {
       return Hero(
         tag: imageId,
         child: CachedNetworkImage(
-            fit: BoxFit.cover,
-            errorWidget: (_, __, ___) => Icon(
-                  Icons.radio,
-                  color: themeData.colorPalette.button,
-                  size: 30,
-                ),
-            imageUrl: imageUrl!,
-            filterQuality: FilterQuality.high,
-            placeholder: (_, __) => Icon(
-                  Icons.radio,
-                  color: themeData.colorPalette.button,
-                  size: 30,
-                )),
+          fit: BoxFit.cover,
+          errorWidget: (_, __, ___) => _erroWidget(context),
+          imageUrl: imageUrl!,
+          filterQuality: FilterQuality.high,
+          placeholder: (_, __) => _erroWidget(context),
+        ),
       );
     }
   }
 
-  Widget _handleError(
-      BuildContext context, Object error, StackTrace? stacktrace) {
-    if (localErrorFunction != null) {
-      localErrorFunction!(error, stacktrace);
-    }
+  Widget _erroWidget(BuildContext context) {
     return const Icon(
       Icons.radio,
       color: Colors.white,

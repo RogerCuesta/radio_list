@@ -21,7 +21,11 @@ class HomeCubit extends Cubit<HomeState> {
   Future<void> loadRadioChannels(
       {String searchText = '', bool resetPagination = false}) async {
     emit(state.copyWith(
-        status: RadiosLoadStatus.loading, radioChannels: [], errorStatus: ''));
+      status: RadiosLoadStatus.loading,
+      radioChannels: [],
+      errorStatus: '',
+      searchText: searchText,
+    ));
     try {
       _searchText = searchText;
       if (resetPagination) {
@@ -39,9 +43,11 @@ class HomeCubit extends Cubit<HomeState> {
             );
       currentPage++;
       emit(state.copyWith(
-          status: RadiosLoadStatus.succeeded,
-          radioChannels: result,
-          errorStatus: ''));
+        status: RadiosLoadStatus.succeeded,
+        radioChannels: result,
+        errorStatus: '',
+        searchText: searchText,
+      ));
     } catch (error) {
       _resetPagination();
       emit(state.copyWith(
@@ -55,11 +61,16 @@ class HomeCubit extends Cubit<HomeState> {
     if (state.status != RadiosLoadStatus.loading) {
       emit(state.copyWith(loadingMore: true));
       try {
-        final result = await radioRepository.getRadios(
-          limit: itemsPage,
-          offset: currentPage * itemsPage,
-          //searchText: _searchText,
-        );
+        final result = _searchText.isEmpty
+            ? await radioRepository.getRadios(
+                limit: itemsPage,
+                offset: currentPage * itemsPage,
+              )
+            : await radioRepository.searchRadios(
+                limit: itemsPage,
+                offset: currentPage * itemsPage,
+                searchText: _searchText,
+              );
         if (result.isEmpty) {
           emit(state.copyWith(loadingMore: false));
         } else {

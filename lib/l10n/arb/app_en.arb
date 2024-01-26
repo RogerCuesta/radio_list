@@ -23,5 +23,9 @@
     "languageText": "Languages",
     "@languageText": {
         "description": "Language Text radio player"
+    },
+    "searchText": "Search radio",
+    "@searchText": {
+        "description": "Text for the radios search field"
     }
 }

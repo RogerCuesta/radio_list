@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 class Radio extends Equatable {
   const Radio({
     required this.name,
+    required this.stationuuid,
     required this.url,
     required this.state,
     required this.tags,
@@ -12,6 +13,7 @@ class Radio extends Equatable {
   });
 
   final String? name;
+  final String? stationuuid;
   final String? url;
   final String? state;
   final String? tags;
@@ -22,6 +24,7 @@ class Radio extends Equatable {
   factory Radio.fromJson(Map<String, dynamic> json) {
     return Radio(
       name: json["name"],
+      stationuuid: json['stationuuid'],
       url: json["url"],
       tags: json['tags'],
       state: json['state'],
@@ -34,6 +37,7 @@ class Radio extends Equatable {
   @override
   List<Object?> get props => [
         name,
+        stationuuid,
         url,
         tags,
         state,

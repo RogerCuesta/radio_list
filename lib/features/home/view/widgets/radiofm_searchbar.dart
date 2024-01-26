@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_radio/features/home/home.dart';
+import 'package:flutter_radio/l10n/l10n.dart';
+import 'package:flutter_radio/theme/theme.dart';
+import 'package:provider/provider.dart';
 
 class RadioSearchBar extends StatelessWidget {
   const RadioSearchBar({
@@ -10,8 +13,12 @@ class RadioSearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeData = Provider.of<RadioAppThemeData>(context);
+    final l10n = context.l10n;
+    final TextEditingController textController = TextEditingController();
+
     return Align(
-      alignment: Alignment.centerRight,
+      alignment: Alignment.topCenter,
       child: Container(
         height: 55.0,
         padding: const EdgeInsets.all(2.0),
@@ -31,16 +38,17 @@ class RadioSearchBar extends StatelessWidget {
             const SizedBox(width: 10.0),
             Icon(
               CupertinoIcons.search,
-              color: Theme.of(context).colorScheme.secondary,
+              color: themeData.colorPalette.coralpink,
             ),
             const SizedBox(width: 10.0),
             Expanded(
               child: TextField(
+                controller: textController,
                 decoration: InputDecoration.collapsed(
-                  hintText: 'Buscar',
+                  hintText: l10n.searchText,
                   hintStyle: TextStyle(
                     fontSize: 16.0,
-                    color: Theme.of(context).textTheme.bodySmall!.color,
+                    color: themeData.colorPalette.appTitle,
                     fontWeight: FontWeight.normal,
                   ),
                 ),
@@ -49,6 +57,34 @@ class RadioSearchBar extends StatelessWidget {
                     .loadRadioChannels(
                         searchText: searchTerm, resetPagination: true),
               ),
+            ),
+            const SizedBox(width: 10.0),
+            BlocBuilder<HomeCubit, HomeState>(
+              builder: (context, state) {
+                if (context.read<HomeCubit>().state.searchText.isNotEmpty) {
+                  return Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          textController.clear();
+                          context
+                              .read<HomeCubit>()
+                              .loadRadioChannels(resetPagination: true);
+                        },
+                        child: Icon(
+                          Icons.close,
+                          color: themeData.colorPalette.coralpink,
+                        ),
+                      ),
+                      const SizedBox(width: 10.0),
+                    ],
+                  );
+                } else {
+                  return const SizedBox();
+                }
+              },
             ),
           ],
         ),

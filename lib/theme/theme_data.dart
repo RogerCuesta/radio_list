@@ -34,7 +34,7 @@ class RadioAppThemeData {
             letterSpacing: 1.2,
           ),
           titleCurrentplaying: TextStyle(
-              color: colors.fuchsiarose,
+              color: colors.coralpink,
               fontWeight: FontWeight.w700,
               fontFamily: "Raleway",
               fontStyle: FontStyle.normal,

@@ -114,8 +114,10 @@ Update the `CFBundleLocalizations` array in the `Info.plist` at `ios/Runner/Info
 
 ## Screenshots
 
-![Simulator Screenshot - iPhone 14 Pro Max - 2023-07-18 at 10 06 17](https://github.com/RogerCuesta/radio_list/assets/25230461/b38880c4-23a8-41d3-8d09-8021702ebdfc)
 
-![Simulator Screenshot - iPhone 14 Pro Max - 2023-07-18 at 10 07 35](https://github.com/RogerCuesta/radio_list/assets/25230461/518f22ce-097d-4743-9f58-2d3426d0806b)
+<img src="https://github.com/RogerCuesta/radio_list/assets/25230461/685a6a14-e68d-4a2f-8790-6e1211615850" width="400" height="900">
 
-![Simulator Screenshot - iPhone 14 Pro Max - 2023-07-18 at 10 07 45](https://github.com/RogerCuesta/radio_list/assets/25230461/a24c0273-3a3b-4e1e-ae66-edeaae8e20f0)
+<img src="https://github.com/RogerCuesta/radio_list/assets/25230461/42d96218-3433-475c-9235-ff3a1a164254" width="400" height="900">
+
+<img src="https://github.com/RogerCuesta/radio_list/assets/25230461/4ed20a1d-87c1-4007-84da-895406b29789" width="400" height="900">
+
